@@ -138,3 +138,14 @@ CSS ではなく、HTML で div 要素の style 属性にスタイルを指定�
 {% asset_img 034.png %}
 
 さらに、class セレクタで指定しておくというのは、ほかの場所でも再利用できるというメリットもあります。次回は、いかに再利用しやすいように CSS を書くのかという、「コンポーネント」について考えていきたいと思います。
+
+#### 嘘かもしれないから、W3C の仕様書も読んでみよう！
+
+* [Selectors Level 3 - 9. Calculating a selector's specificity](http://www.w3.org/TR/selectors/#specificity)
+* [Selectors Level 4 (Editor’s Draft) - 15. Calculating a selector’s specificity](https://drafts.csswg.org/selectors-4/#specificity)
+  * [広瀬行夫さんによる日本語訳](http://www.hcn.zaq.ne.jp/___/WEB/selectors4-ja.html#specificity)
+
+#### 資料作成にあたって、以下のページを参考にさせていただきました。
+
+* [エンジニアはもう一度CSSとちゃんと向き合ってみよう - 詳細度編 - Qiita](http://qiita.com/izumin5210/items/8ae78cb4f4bd325bccb4)
+* [[CSS] CSSの詳細度による「適用順(優先順位)」と「上書き」 | ぶぶりんブログ](http://buburinweb.wp.xdomain.jp/css-detailing)
