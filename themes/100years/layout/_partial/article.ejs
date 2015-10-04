@@ -12,7 +12,7 @@
     <div class="share">
       <ul class="share__list">
         <li class="share__item share__item--twitter">
-          <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="<%- url_for(post.permalink) %>" data-text="<%= post.title %>" data-lang="ja">Tweet</a>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="<%- url_for(post.permalink) %>" data-text="<%= config.title %> · <%= post.title %>" data-lang="ja">Tweet</a>
         </li>
         <li class="share__item share__item--facebook">
           <div class="fb-like" data-href="<%- url_for(post.permalink) %>" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
