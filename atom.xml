@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[100年後も崩れないCSS勉強会]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://pepabo.github.io/css/"/>
+  <updated>2015-10-04T08:05:07.000Z</updated>
+  <id>http://pepabo.github.io/css/</id>
+  
+  <author>
+    <name><![CDATA[鹿]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[第2回「コンポーネント」]]></title>
+    <link href="http://pepabo.github.io/css/component/"/>
+    <id>http://pepabo.github.io/css/component/</id>
+    <published>2015-09-29T04:00:00.000Z</published>
+    <updated>2015-10-04T08:05:07.000Z</updated>
+    <content type="html"><![CDATA[<img src="/component/001.png" alt="001.png" title="">
+<p>100年後も崩れないCSS勉強会、第2回です！というわけで、きょうはコンポーネントについてお話しさせてください。</p>
+<img src="/component/002.png" alt="002.png" title="">
+<p>突然ですが、こちらはなんのへんてつもない Amazon のページです（2015年9月29日現在）。このページをよく見てみると、同じような見た目のものがあると思いませんか？</p>
+<img src="/component/003.png" alt="003.png" title="">
+<p>例えば、ヘッダーのメニューのなかの、右に小さな矢印がついたリンクとか…</p>
+<img src="/component/004.png" alt="004.png" title="">
+<p>例えば、サイドバーのカテゴリーの見出しと各項目が一覧になっているリンクとか…</p>
+<img src="/component/005.png" alt="005.png" title="">
+<p>本の書影とカテゴリーの見出し・本のタイトルが一緒になったリンクもあります。</p>
+<img src="/component/006.png" alt="006.png" title="">
+<p>さらには、ページのなかでオレンジ色の太字の見出しなんかも、文字の大きさは違うけど同じ見た目ですね。</p>
+<img src="/component/007.png" alt="007.png" title="">
+<p>こんなふうに、ウェブページはたくさんの要素があるように見えて、案外おなじ見た目の要素を繰り返したり、組み合わせることで作られています。</p>
+<img src="/component/008.png" alt="008.png" title="">
+<p>このような共通した要素のことを、ここではコンポーネントと呼びたいと思います。</p>
+<img src="/component/009.png" alt="009.png" title="">
+<p>「共通している」ということを言い換えると、「ここだけではなく他の場所でも再利用できる」ということでもあります。</p>
+<img src="/component/010.png" alt="010.png" title="">
+<p>それでは、さきほどの Amazon のオレンジ色の見出しの部分をコーディングするぞ！となったら、どんなふうに書くでしょうか。</p>
+<img src="/component/011.png" alt="011.png" title="">
+<p>例えばこんなふうにそれぞれ class 属性に名前をつけて、スタイルを指定したとします。でも、この3つをよく見ると、文字の色や太さの指定はどれも共通していて、違うのは文字の大きさだけですね。</p>
+<img src="/component/012.png" alt="012.png" title="">
+<p>じゃあ、ということで共通しているスタイルは <code>.title</code> という class セレクタのスタイルとして指定しておいて、それぞれの文字の大きさだけ class セレクタを追加して指定するようにしたら、どうでしょうか。こう書くと、文字の色や太さを変えたくなったときも、1行変えるだけで一気に変更できるので楽なのではないでしょうか。</p>
+<img src="/component/013.png" alt="013.png" title="">
+<p>この楽をしたいという怠惰な考えをもっと進めると、<code>.page</code> だとか <code>.section</code> だとかっていうのは「場所の意味」を指しているわけですが、どうせこのスタイルでは文字の大きさしか指定していないので、large だとか medium といった「見た目の意味」で指定できるようにするのは、どうでしょうか。こう書くと、ページの下のほうで 16px の見出しをつけたい！って思ったとき、その要素がどんな意味を持つ場所にあったとしても、HTML で <code>.medium</code> と class を追加するだけでスタイルを指定できて便利じゃないですか？</p>
+<img src="/component/014.png" alt="014.png" title="">
+<p>しかし、この名前のつけかたには問題があります。というのも、CSS はスタイルを適用する範囲を指定できないからです。ここでは <code>.large</code> という名前をつけていますが、他の場所でも大きい要素を表現したい場合に <code>.large</code> という名前をつけることも当然あると思います。もちろんあとから書いた <code>.large</code> は <code>.title.large</code> に影響するので、ぜんぜん想定していない見た目になってしまいます。<code>.large</code> とかいう競合しそうな名前をつけないように気をつければいいって話なんですけど、現実的に意図しない見た目になっちゃたよオイというのは CSS を書いていて「あるある」なできごとですよね。</p>
+<img src="/component/015.png" alt="015.png" title="">
+<p>じゃあどうすればいいのか？ ひとつの解決策としては、CSS の仕様が足りないのであれば自分たちで工夫しようということで、<code>.title-large</code> といった名前にするといいんじゃないかという考え方があります。こう書いておけば、おもむろに誰かが <code>.large</code> って書いても影響を受けないので安心だし、いままで <code>.large</code> だけだと何についてのスタイルなのかわからなかったものが、<code>.title</code> の見た目を指定しているスタイルシートであるということと、<code>.title</code> の文字の大きさを指定しているスタイルシートであることが、名前から伝わってくるように思います。</p>
+<img src="/component/016.png" alt="016.png" title="">
+<p>CSS 設計業界（？）では、このような考え方を説明するときに BEM（ベム）（ロシア発祥）という概念を利用することがあります。BEM では、ここでいう <code>title</code> のことを「Block」と呼んでいて、</p>
+<img src="/component/017.png" alt="017.png" title="">
+<p><code>large</code> とか <code>medium</code> といったバリエーション違いを表している名前を「Modifier」と呼んでいます。</p>
+<img src="/component/018.png" alt="018.png" title="">
+<p>こちらはなんのへんてつもない検索フォームです。form 要素の <code>.search-form</code> のなかに、テキストフィールドの <code>.search-form-textfield</code> と、検索ボタンの <code>.search-form-button</code> という要素が入っています。</p>
+<img src="/component/019.png" alt="019.png" title="">
+<p>BEM（ベム）（ロシア発祥）では、ここでいう <code>search-form</code> を「Block」と呼んでいて、</p>
+<img src="/component/020.png" alt="020.png" title="">
+<p>こんなふうに <code>search-form</code> の中に入っている <code>textfield</code> や <code>button</code> といった要素を「Element」と呼んでいます。BEM（ベム）（ロシア発祥）は、「Block」「Element」「Modifier」の頭文字を略した名前なんですね。</p>
+<img src="/component/021.png" alt="021.png" title="">
+<p>でも、こんなふうに3種類の概念がひとつの名前に混ざっていると、いったいこの名前は Block なのか Element なのか Modifier なのか、どれを指しているのかわからないですよね…？</p>
+<img src="/component/022.png" alt="022.png" title="">
+<p>そこで、BEM の概念を理解しやすいように、MindBEMding（マインドベムディング）という命名規則が考え出されました。Element の前にはアンダーバー2つ、Modifier の前にはハイフン2つをつけることにしようじゃないか。これで Element と Modifier の区別がつく！やったー！</p>
+<img src="/component/023.png" alt="023.png" title="">
+<p>さきほどの検索フォームを MindBEMding の命名規則を用いて書いてみたら、このようになるでしょうか。結果的にまぁ名前がめっちゃ長くなっちゃうわけですが、でも、<code>textfiled</code> や <code>button</code> が <code>search-form</code> のためにある要素だって、わかりやすくなったのではないでしょうか。</p>
+<img src="/component/024.png" alt="024.png" title="">
+<p>巨大な検索フォームを作る必要があっても大丈夫。<code>large</code> という Modifier がついたときのスタイルを指定すればいいんです。意味と見た目を分離して、どこでも再利用できる部品として定義する。同じ記述はできるだけ共通化して、全体を把握しやすくする。仕事も速くなって、リニューアルもかんたんです。コンポーネント、最高！</p>
+<img src="/component/025.png" alt="025.png" title="">
+<p>こんなふうな命名規則や考え方、またディレクトリ構成やファイルの分け方などはいろいろと提唱されていますが、どれもコンポーネントを意識して、いちど書いたスタイルの再利用性を高める、という視点は同じです。MindBEMding のハイフン2つやアンダーバー2つといった命名規則だって別に強制されているわけではなく、壊れにくい CSS を書くためのヒントとして、どう書いたっていいし、なによりチームメンバーや半年後のすべてを忘れた自分に伝わればいいんじゃないかなと思います。</p>
+<img src="/component/026.png" alt="026.png" title="">
+<p>さて、こちらはなんのへんてつもないタブのメニューです。クリックするとページに移動して、選択したタブの色がオレンジ色に変わるよくあるやつ。このスタイルがページのなかで何度も登場するので、業を煮やしてきょうはこれをコンポーネントにしようと思います。いったいどうやって書いたらいいでしょうか？</p>
+<img src="/component/027.png" alt="027.png" title="">
+<p>1案としては、<code>.global-menu</code> を Block の名前として、そのなかにあるやつを <code>.global-menu</code> からはじまる名前にして <code>.global-menu-item</code> にする。そうすれば、<code>.global-menu</code> 関連の要素なんだなっていうのが伝わりますね。そして、選択中のタブには <code>.active</code> って class をつけることで区別する。</p>
+<img src="/component/028.png" alt="028.png" title="">
+<p>いや、当プロジェクトでは Modifier は先頭に <code>.is-</code> をつけております、とか。</p>
+<img src="/component/029.png" alt="029.png" title="">
+<p>いや、そもそも <code>.global-menu</code> っていうけど、グローバルメニュー以外でもこの見た目あるよねってことで、どこでも使えるように意味ではなく見た目をあらわす <code>.tab-menu</code> って名前にしちゃうとか。ハイフンの区切り文字と Element の区別がつかないから、MindBEMding を取り入れてみるとか。</p>
+<img src="/component/030.png" alt="030.png" title="">
+<p>いや、俺はアンダーバー派だよっていうか、アプリケーションの他のコードはアンダーバーならアンダーバーにしちゃってもいいし、Modifier はアンダーバー2個からはじめるルールにしちゃうぞっていうのも良いと思います。</p>
+<img src="/component/031.png" alt="031.png" title="">
+<p>いや、<code>.tab-menu</code> がコンポーネントなのかどうかっていうのはよくわからないから、もっとわかりやすくするために先頭に <code>.c-</code> をつけるよ、みたいな几帳面な人もいます。</p>
+<img src="/component/032.png" alt="032.png" title="">
+<p>というような名前のつけかた、すでに考案されている命名規則は、この「<a href="http://booklog.jp/item/1/4844336355" target="_blank" rel="external">CSS 設計の教科書</a>」というすばらしい緑色の本に詳しく書いてあるので、ぜひ読んでください！</p>
+<img src="/component/033.png" alt="033.png" title="">
+<p>新規開発ならともかく、いま担当してるリリース済みのサービスで運用しながらどうやって導入していけばいいの？っていうことについては、このペパボの GitHub Pages にある「<a href="http://pepabo.github.io/docs/frontend/standard/css-architecture/" target="_blank">CSS 設計の長い夢</a>」っていうページで @otthi さんが書かれているので、ぜひ読んでください！</p>
+<img src="/component/034.png" alt="034.png" title="">
+<p>まとめです。ページのなかでもし3回も同じ見た目の要素が登場することがあったら、ぜひこれはコンポーネントになるかもしれないって思って書いてみるのはどうでしょうか。きっと、あとで楽になったり便利になったり、壊れなかったりしてカッコいいと思います。ただし、逆になんでもコンポーネント化するとわけがわからなくなってしまうので、3回っていうのは結構よい基準なんじゃないかなっていうのは、やっぱりこの緑の本に書いてありましたので、僕も同意です！</p>
+<img src="/component/035.png" alt="035.png" title="">
+<p>とはいえ、コンポーネントって自分で思ってるだけでは他の人はなんのことかよくわからないですよね。だから、チームメンバーや半年後の自分が把握できるように、スタイルシートの説明書を作るのはどうでしょうか。そんなドキュメントの作り方を、次回はお話ししたいです。よろしくお願いします！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<img src="/component/001.png" alt="001.png" title="">
+<p>100年後も崩れないCSS勉強会、第2回です！というわけで、きょうはコンポーネントについてお話しさせてください。</p>
+<img src="/component/0]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[第1回「詳細度」]]></title>
+    <link href="http://pepabo.github.io/css/specificity/"/>
+    <id>http://pepabo.github.io/css/specificity/</id>
+    <published>2015-09-16T10:30:00.000Z</published>
+    <updated>2015-10-04T08:05:08.000Z</updated>
+    <content type="html"><![CDATA[<img src="/specificity/001.png" alt="001.png" title="">
+<p>さて、唐突にはじまりましたが「100年後も崩れない CSS 勉強会」、きょうは詳細度についてお話しします！</p>
+<img src="/specificity/002.png" alt="002.png" title="">
+<p>あっ 崩れてる！</p>
+<img src="/specificity/003.png" alt="003.png" title="">
+<p>…っていうのは CSS あるあるだと思うんですけど、スタイルシートを書いているときはきちんと表示できてても、あとから見るとあれ？おかしくない？みたいなこと、よくありませんか？</p>
+<img src="/specificity/004.png" alt="004.png" title="">
+<p>なんでスタイルが崩れてしまうんでしょうか。そのことを考えるために、逆になんでスタイルって「当たる」のか、というところを改めて見てみようと思います。</p>
+<img src="/specificity/005.png" alt="005.png" title="">
+<p>CSS には書かれたスタイルを適用する優先順位があって、まず1番目に上から順番に「当てる」というのと、その次に詳細度という順番によって「当てる」という、ふたつのルールがあります。</p>
+<img src="/specificity/006.png" alt="006.png" title="">
+<p>まずは、上から順番に「当たる」ことについて見てみます。</p>
+<img src="/specificity/007.png" alt="007.png" title="">
+<p>GMO Pepabo, Inc. とだけ書かれた div 要素があって、class という名前の class が指定されています。この class をセレクタにして、ふたつのスタイルシートが書かれています。このように CSS が書かれているとき、いったい GMO Pepabo, Inc. は何色になるのでしょうか。</p>
+<img src="/specificity/008.png" alt="008.png" title="">
+<p>ブラウザは CSS を上から順番に解釈していくので、上から1行ずつ見ていくと…</p>
+<img src="/specificity/009.png" alt="009.png" title="">
+<p>ここで <code>color: red;</code> が評価されて、GMO Pepabo, Inc. は赤色になります。</p>
+<img src="/specificity/010.png" alt="010.png" title="">
+<p>しかし、スタイルシートはここで終わりではありません。</p>
+<img src="/specificity/011.png" alt="011.png" title="">
+<p>さらに見ていくと…</p>
+<img src="/specificity/012.png" alt="012.png" title="">
+<p>ここで <code>color: blue;</code> と書いてあるので、さきほどの <code>color: red;</code> の指定が上書きされて、GMO Pepabo, Inc. は青色になります。</p>
+<img src="/specificity/013.png" alt="013.png" title="">
+<p>このように、上に書かれているスタイルより、下に書かれてあるスタイルのほうが優先される。これがスタイルが「当たる」優先順位のひとつです。</p>
+<img src="/specificity/014.png" alt="014.png" title="">
+<p>それでは、もうひとつのほうのルール、</p>
+<img src="/specificity/015.png" alt="015.png" title="">
+<p>詳細度が高い順番に「当たる」というルールを見ていきます。</p>
+<img src="/specificity/016.png" alt="016.png" title="">
+<p>詳細度とは聞き慣れない言葉ですが、CSS でスタイルを指定するときのセレクタの種類によって、実は優先順位が異なります。その優先する強さのレベルを、ここでは A〜D ランクで格付けしてみようと思います。</p>
+<img src="/specificity/017.png" alt="017.png" title="">
+<p>優先する強い順に並べてみると、このようになります。<code>!important</code> や <code>*</code> といったものは、指定しただけで最強になったり優先順位がまったくないものなので、それぞれ最強と最弱としてランキングに含めてみました…。</p>
+<img src="/specificity/018.png" alt="018.png" title="">
+<p>ID セレクタは B ランクなので、このようにスタイルを指定すると、このスタイルの優先順位は　B が 1 ポイントというふうに考えます。</p>
+<img src="/specificity/019.png" alt="019.png" title="">
+<p>class セレクタで指定すれば、優先順位は C が 1 ポイントです。</p>
+<img src="/specificity/020.png" alt="020.png" title="">
+<p>複数のセレクタが同時に指定されているときは、優先順位は合算されます。このように ID と class を指定した場合は、B が 1 ポイント、C が 1 ポイントといった具合になります。</p>
+<img src="/specificity/021.png" alt="021.png" title="">
+<p>要素セレクタも加えてみれば、B が 1 ポイント、C が 1 ポイント、D が 1 ポイント。</p>
+<img src="/specificity/022.png" alt="022.png" title="">
+<p>CSS ではなく、HTML で div 要素の style 属性にスタイルを指定したなら、これは A が 1 ポイントとなり、いちばん優先順位が強くなります。</p>
+<img src="/specificity/023.png" alt="023.png" title="">
+<p>…というルールをふまえて、#id と .class が指定された div 要素に、ID セレクタでスタイルを指定したあとに class セレクタで同じプロパティのスタイルを指定してみました。このとき、いったい GMO Pepabo, Inc. は何色になるでしょうか？</p>
+<img src="/specificity/024.png" alt="024.png" title="">
+<p>答えは、赤色です。なぜなら、ID セレクタのほうが C より強い B レベルのポイントが 1 ポイントあるので、class セレクタのスタイルが下に書かれていたとしても、より優先順位が高いと判断されるからです。</p>
+<img src="/specificity/025.png" alt="025.png" title="">
+<p>じゃあ、ということで ID セレクタひとつのスタイルと、class セレクタを 10 個つなげたスタイルを書いてみました。このときは、いったい GMO Pepabo, Inc. は何色になるでしょうか。</p>
+<img src="/specificity/026.png" alt="026.png" title="">
+<p>これも、ID セレクタが優先されて赤色になります。10 進法みたいに桁が繰り上がるということはなく、C レベルの値がどれだけ高くても、B レベルで負けてしまうと優先順位は低いと見なされてしまうんですね。</p>
+<img src="/specificity/027.png" alt="027.png" title="">
+<p>だから、class セレクタのスタイルに ID セレクタを追加すれば、もちろん青色になります。</p>
+<img src="/specificity/028.png" alt="028.png" title="">
+<p>しかし、そのあとに class セレクタがたったひとつだとしても、<code>!important</code> を指定したスタイルがあれば、そちらが最強になってしまいます。</p>
+<img src="/specificity/029.png" alt="029.png" title="">
+<p>いくら CSS で <code>!important</code> を指定した最強スタイルも、HTML で style 属性にインラインで書かれた <code>!important</code> を指定したスタイルがあれば、こちらが優先される！</p>
+<img src="/specificity/030.png" alt="030.png" title="">
+<p>これらの例は隣りあって書かれているので把握することができますが、書いている箇所が離れていたり、CSS ではなく HTML にまでファイルが分かれて書かれていれば、把握しきれません。優先順位を把握しながら壊れないようにスタイルを指定するには、スタイルの詳細度を揃える必要があります。だから、 <code>!important</code> はしない。style 属性にスタイルを指定しない。ID セレクタ、要素セレクタでは指定しない。</p>
+<img src="/specificity/031.png" alt="031.png" title="">
+<p>じゃあどうするの！というと、原則的に class セレクタで指定しておくのはどうでしょうか。全部おなじ詳細度であれば、あとから書いたスタイルが優先されるというルールだけ意識すれば、優先順位を把握できるようになります。だから、何が影響しているのかわからなくなったり、意図せずスタイルが崩れるということも少なくなるのではないでしょうか…？</p>
+<img src="/specificity/032.png" alt="032.png" title="">
+<p>もちろん、CSS は詳細度のために書いているわけではありません。ID セレクタでスタイルを指定すれば、要素がページにひとつしかないことが伝わります。要素名をセレクタに指定してスタイルを指定すれば、わざわざ HTML で class を指定しなくてもスタイルが適用されますし、<code>body.pepabo</code> と書けば body 要素に <code>pepabo</code> という class が指定されたときだけスタイルを指定できます。自分以外の誰か、または半年後のすべてを忘れてしまった自分のためにも、伝わる CSS を書くべきなんです!!</p>
+<img src="/specificity/033.png" alt="033.png" title="">
+<p>というわけで、まとめです。class セレクタ最高！</p>
+<img src="/specificity/034.png" alt="034.png" title="">
+<p>さらに、class セレクタで指定しておくというのは、ほかの場所でも再利用できるというメリットもあります。次回は、いかに再利用しやすいように CSS を書くのかという、「コンポーネント」について考えていきたいと思います。</p>
+<h4 id="嘘かもしれないから、W3C_の仕様書も読んでみよう！">嘘かもしれないから、W3C の仕様書も読んでみよう！</h4><ul>
+<li><a href="http://www.w3.org/TR/selectors/#specificity" target="_blank" rel="external">Selectors Level 3 - 9. Calculating a selector’s specificity</a></li>
+<li><a href="https://drafts.csswg.org/selectors-4/#specificity" target="_blank" rel="external">Selectors Level 4 (Editor’s Draft) - 15. Calculating a selector’s specificity</a><ul>
+<li><a href="http://www.hcn.zaq.ne.jp/___/WEB/selectors4-ja.html#specificity" target="_blank" rel="external">広瀬行夫さんによる日本語訳</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="資料作成にあたって、以下のページを参考にさせていただきました。">資料作成にあたって、以下のページを参考にさせていただきました。</h4><ul>
+<li><a href="http://qiita.com/izumin5210/items/8ae78cb4f4bd325bccb4" target="_blank" rel="external">エンジニアはもう一度CSSとちゃんと向き合ってみよう - 詳細度編 - Qiita</a></li>
+<li><a href="http://buburinweb.wp.xdomain.jp/css-detailing" target="_blank" rel="external">[CSS] CSSの詳細度による「適用順(優先順位)」と「上書き」 | ぶぶりんブログ</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<img src="/specificity/001.png" alt="001.png" title="">
+<p>さて、唐突にはじまりましたが「100年後も崩れない CSS 勉強会」、きょうは詳細度についてお話しします！</p>
+<img src="/specificity/]]>
+    </summary>
+    
+  </entry>
+  
+</feed>
