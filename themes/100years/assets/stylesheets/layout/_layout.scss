@@ -57,10 +57,10 @@ a {
     background-position: center center;
   }
   &.footer__account-list--twitter a {
-    background-image: url(/images/twitter.svg);
+    background-image: url(/css/images/twitter.svg);
   }
   &.footer__account-list--contact a {
-    background-image: url(/images/reply.svg);
+    background-image: url(/css/images/reply.svg);
   }
 }
 .footer__pagetop {
@@ -70,7 +70,7 @@ a {
   width: 48px;
   height: 48px;
   display: block;
-  background-image: url(/images/chevron-small-up.svg);
+  background-image: url(/css/images/chevron-small-up.svg);
   background-size: 36px 36px;
   background-repeat: no-repeat;
   background-position: center center;
