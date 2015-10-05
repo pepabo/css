@@ -11,7 +11,7 @@ timezone: Asia/Tokyo
 
 # URL
 url: http://pepabo.github.io/css
-root: /
+root: /css/
 permalink: :title/
 permalink_defaults: en
 
